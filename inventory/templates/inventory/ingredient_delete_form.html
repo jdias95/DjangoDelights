@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Montserrat&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2>Delete Ingredient</h2>
+
+<form method="POST">
+    <div>
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ object.name|title }}"?</p>
+        <input type="submit" value="Confirm">
+        <a href="{% url 'ingredientlist' %}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'style.css' %}"> <!-- loading static files -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Montserrat&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2>Inventory</h2>
+
+<table class="inventory">
+    <th>Ingredient</th>
+    <th>Price Per Unit</th>
+    <th>Stock</th>
+    {% for ingredient in ingredient_list %}
+    <tr>
+        <td>{{ ingredient.name|title }}</td>
+        {% if ingredient.unit != 'None' %}
+        <td>${{ ingredient.unit_price }} / {{ ingredient.unit }}</td> <!-- question about price -->
+        {% else %}
+        <td>${{ ingredient.unit_price }}</td>
+        {% endif %}
+        <td>{{ ingredient.quantity }}</td>
+        <td>
+            <a href="{% url 'ingredientdelete' ingredient.id %}">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

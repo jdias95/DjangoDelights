@@ -1,0 +1,24 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Montserrat&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2>Purchases</h2>
+
+<table class="purchases">
+    <th>Menu Item</th>
+    <th>Time of Purchase</th>
+    {% for purchase in purchase_list %}
+    <tr>
+        <td>{{ purchase.menu_item|title }}</td>
+        <td>{{ purchase.timestamp|date:"M d, Y h:i:s A"}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

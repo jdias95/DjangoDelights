@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Montserrat&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block header %}
+<h1>Django Delights</h1>
+{% endblock %}
+
+{% block content %}
+<nav>
+    <a href="{% url 'ingredientlist' %}"><h2>Inventory</h2></a>
+    <a href="{% url 'menuitemlist' %}"><h2>Menu</h2></a>
+    <a href="{% url 'purchaselist' %}"><h2>Purchase</h2></a>
+    <a href="{% url 'report' %}"><h2>Report</h2></a>
+</nav>
+{% endblock %}

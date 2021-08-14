@@ -1,0 +1,101 @@
+body {
+    background-color: #3a90b3;
+    color: white;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 64px;
+    text-align: center;
+    color: black;
+}
+
+.container {
+    background-color: #0C4866;
+    padding-bottom: 30px;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    font-family: 'Lobster', cursive;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 36px;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+nav a:hover {
+    color: #5b89ec;
+}
+
+h2 {
+    position: relative;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 36px;
+    top: 12px;
+}
+
+table {
+    font-family: 'Lora', serif;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.inventory, .menu {
+    border-collapse: collapse;
+    border: 1px solid rgb(173, 173, 173);
+}
+
+.inventory {
+    width: 50%;
+}
+
+.inventory th {
+    border: 1px solid rgb(173, 173, 173);
+}
+
+p {
+    display: inline-block;
+    font-family: 'Lora', serif;
+    text-align: center;
+    width: 19.6%;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+}
+
+form p, form input, form a {
+    position: relative;
+    left: 10%;
+}
+
+.submit, .cancel {
+    border: none;
+    margin: 4px 2px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    background-color: #b8bbba;
+    font-size: 1em;
+    font-family: 'Lora', serif;
+    text-align: center;
+}
+
+.submit:hover, .cancel:hover {
+    background-color: #585a5a;
+    color: white;
+}
+
+.cancel {
+    width: 3.842em;
+}

@@ -1,0 +1,24 @@
+{% extends './base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Lora&family=Montserrat&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h2>Menu</h2>
+
+<table class="menu">
+    <th>Item</th>
+    <th>Price</th>
+    {% for item in menuitem_list %}
+    <tr>
+        <td>{{ item.title|title }}</td>
+        <td>${{ item.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

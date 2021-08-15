@@ -17,7 +17,7 @@
     {% for purchase in purchase_list %}
     <tr>
         <td>{{ purchase.menu_item|title }}</td>
-        <td>{{ purchase.timestamp|date:"M d, Y h:i:s A"}}</td>
+        <td>{{ purchase.timestamp|date:"M d, Y h:i A"}}</td>
     </tr>
     {% endfor %}
 </table>

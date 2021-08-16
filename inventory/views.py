@@ -53,5 +53,30 @@ class PurchaseCreate(CreateView):
     form_class = PurchaseCreateForm
 
 def profit_report(request):
-    return render(request, "inventory/report.html")
+    total_revenue = 0
+    total_expenses = 0
+    purchases = Purchase.objects.all()
+    for item in purchases:
+        item_id = item.menu_item.id
+        menu = MenuItem.objects.get(pk=item_id)
+        total_revenue += menu.price
+
+    ingredients = Ingredient.objects.all()
+    for item in ingredients:
+        total_expenses += (item.unit_price * item.quantity)
+
+    total = total_revenue - total_expenses
+    total_profit = None
+    if total > 0:
+        total_profit = total
+    else:
+        total_profit = total * -1
+
+    context = {
+        "total_revenue": total_revenue,
+        "total_expenses": total_expenses,
+        "total": total,
+        "total_profit": total_profit
+    }
+    return render(request, "inventory/report.html", context)
 

@@ -1,15 +1,26 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<div class="header">
+    <a href="{% url 'home' %}" class="home">HOME</a>
+    <a href="{% url 'purchasecreate' %}" class="add-purchase">Add Purchase</a>
+</div>
+{% endblock %}
+
 {% block content %}
 <h2>Purchases</h2>
 
 <table class="purchases">
     <th>Menu Item</th>
+    <th></th>
+    <th></th>
     <th>Time of Purchase</th>
     {% for purchase in purchase_list %}
     <tr>
         <td>{{ purchase.menu_item|title }}</td>
+        <td></td>
+        <td></td>
         <td>{{ purchase.timestamp|date:"M d, Y h:i A"}}</td>
     </tr>
     {% endfor %}

@@ -2,14 +2,10 @@
 {% load static %}
 
 {% block content %}
-<h2>Delete Ingredient</h2>
-
-<form method="POST">
-    <div>
-        {% csrf_token %}
-        <p>Are you sure you want to delete "{{ object.name|title }}"?</p>
-        <input type="submit" value="Confirm">
-        <a href="{% url 'ingredientlist' %}">Cancel</a>
-    </div>
+<form method="POST" class="ingredientdelete">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.name|title }}"?</p>
+    <input type="submit" value="Confirm" class="submit">
+    <a href="{% url 'ingredientlist' %}" class="cancel">Cancel</a>
 </form>
 {% endblock %}

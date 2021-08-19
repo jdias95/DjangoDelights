@@ -25,7 +25,7 @@ class Ingredient(models.Model):
     unit_price = models.DecimalField(max_digits=30, decimal_places=2)
 
     def __str__(self):
-        return self.name + " quantity: " + str(self.quantity) + ",\n" + "price per " + self.unit + ": $" + str(format(self.unit_price, '.2f')) if (self.unit != 'None') else self.name + " quantity: " + str(self.quantity) + ",\n" + "price per: $" + str(format(self.unit_price, '.2f'))
+        return self.name
 
     def get_absolute_url(self):
         return "/ingredient/list"
@@ -35,7 +35,7 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=30, decimal_places=2)
 
     def __str__(self):
-        return self.title + " costs $" + str(format(self.price, '.2f')) 
+        return self.title
     
     def get_absolute_url(self):
         return "/menuitem/list"

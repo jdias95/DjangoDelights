@@ -1,6 +1,12 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<div class="header">
+    <a href="{% url 'home' %}" class="home">HOME</a>
+</div>
+{% endblock %}
+
 {% block content %}
 <h2>Inventory</h2>
 
@@ -12,15 +18,23 @@
     <tr>
         <td>{{ ingredient.name|title }}</td>
         {% if ingredient.unit != 'None' %}
-        <td id="price">${{ ingredient.unit_price }} / {{ ingredient.unit }}</td> <!-- question about price  -->
+        <td id="price">${{ ingredient.unit_price }} / {{ ingredient.unit }}</td>
         {% else %}
         <td id="price">${{ ingredient.unit_price }}</td>
         {% endif %}
-        <td>{{ ingredient.quantity }}</td>
+        <td class="update">
+            <a href="{% url 'ingredientupdate' ingredient.id %}">Update</a>
+            <span>{{ ingredient.quantity }}</span>
+        </td>
         <td>
-            <a href="{% url 'ingredientdelete' ingredient.id %}">Delete</a>
+            <a href="{% url 'ingredientdelete' ingredient.id %}" class="delete">Delete</a>
         </td>
     </tr>
     {% endfor %}
+    <tr>
+        <td colspan="3" class="add">
+            <a href="{% url 'ingredientcreate' %}">Add</a>
+        </td>
+    </tr>
 </table>
 {% endblock %}

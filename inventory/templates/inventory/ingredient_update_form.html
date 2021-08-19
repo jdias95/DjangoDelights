@@ -5,6 +5,7 @@
 <form action="" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update">
+    <input type="submit" value="Update" class="submit">
+    <a href="{% url 'ingredientlist' %}" class="cancel">Cancel</a>
 </form>
 {% endblock %}

@@ -1,16 +1,26 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<div class="header">
+    <a href="{% url 'home' %}" class="home">HOME</a>
+</div>
+{% endblock %}
+
 {% block content %}
 <h2>Profit Report</h2>
 
-<p>${{ total_revenue }}</p>
-<p>-</p>
-<p>${{ total_expenses }}</p>
-<p>=</p>
-{% if total > 0 %}
-<p>${{ total_profit }}</p>
-{% else %}
-<P>-${{ total_profit }}</P>
-{% endif %}
+<table class="report">
+    <tr>
+        <td>${{ total_revenue }}</td>
+        <td>-</td>
+        <td>${{ total_expenses }}</td>
+        <td>=</td>
+        {% if total > 0 %}
+        <td>${{ total_profit }}</td>
+        {% else %}
+        <td>-${{ total_profit }}</td>
+        {% endif %}
+    </tr>
+</table>
 {% endblock %}

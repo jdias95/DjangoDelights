@@ -12,8 +12,8 @@ urlpatterns = [
     path('ingredient/update/<pk>', views.IngredientUpdate.as_view(), name='ingredientupdate'),
     path('menuitem/list', views.MenuItemList.as_view(), name='menuitemlist'),
     path('menuitem/create', views.MenuItemCreate.as_view(), name='menuitemcreate'),
-    path('reciperequirement/create', views.RecipeRequirementCreate.as_view(), name='reciperequirementcreate'),
+    path('reciperequirement/create/<pk>', views.RecipeRequirementCreate.as_view(), name='reciperequirementcreate'),
     path('purchase/list', views.PurchaseList.as_view(), name='purchaselist'),
     path('purchase/create', views.PurchaseCreate.as_view(), name='purchasecreate'),
     path('report', views.profit_report, name='report'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

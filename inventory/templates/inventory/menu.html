@@ -1,17 +1,30 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<div class="header">
+    <a href="{% url 'home' %}" class="home">HOME</a>
+</div>
+{% endblock %}
+
 {% block content %}
 <h2>Menu</h2>
 
 <table class="menu">
-    <th>Item</th>
-    <th>Price</th>
     {% for item in menuitem_list %}
     <tr>
         <td>{{ item.title|title }}</td>
+        <td class="update">
+            <a href="{% url 'reciperequirementcreate' item.id %}">Update Recipe</a>
+        </td>
+        <td></td>
         <td>${{ item.price }}</td>
     </tr>
     {% endfor %}
+    <tr>
+        <td colspan="4" class="add">
+            <a href="{% url 'menuitemcreate' %}">Add</a>
+        </td>
+    </tr>
 </table>
 {% endblock %}

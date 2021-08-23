@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>Profit Report</h2>
+<h2 class="page-title">Profit Report</h2>
 
 <table class="report">
     <tr>
@@ -16,7 +16,7 @@
         <td>-</td>
         <td>${{ total_expenses }}</td>
         <td>=</td>
-        {% if total > 0 %}
+        {% if total >= 0 %}
         <td>${{ total_profit }}</td>
         {% else %}
         <td>-${{ total_profit }}</td>

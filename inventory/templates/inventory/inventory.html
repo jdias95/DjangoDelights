@@ -2,31 +2,30 @@
 {% load static %}
 
 {% block header %}
-<div class="header">
-    <a href="{% url 'home' %}" class="home">HOME</a>
-</div>
+<a href="{% url 'home' %}" class="home">HOME</a>
 {% endblock %}
 
 {% block content %}
-<h2>Inventory</h2>
+<h2 class="page-title">Inventory</h2>
 
 <table class="inventory">
     <th>Ingredient</th>
-    <th>Price Per Unit</th>
-    <th>Stock</th>
+    <th class="shorter">Price Per Unit</th>
+    <th class="shorter">Stock</th>
+    <th class="shorter"></th>
     {% for ingredient in ingredient_list %}
     <tr>
-        <td>{{ ingredient.name|title }}</td>
+        <td class="longer">{{ ingredient.name|title }}</td>
         {% if ingredient.unit != 'None' %}
-        <td id="price">${{ ingredient.unit_price }} / {{ ingredient.unit }}</td>
+        <td class="shorter">${{ ingredient.unit_price }} / {{ ingredient.unit }}</td>
         {% else %}
-        <td id="price">${{ ingredient.unit_price }}</td>
+        <td class="shorter">${{ ingredient.unit_price }}</td>
         {% endif %}
-        <td class="update">
+        <td class="update shorter">
             <a href="{% url 'ingredientupdate' ingredient.id %}">Update</a>
             <span>{{ ingredient.quantity }}</span>
         </td>
-        <td>
+        <td class="shorter">
             <a href="{% url 'ingredientdelete' ingredient.id %}" class="delete">Delete</a>
         </td>
     </tr>

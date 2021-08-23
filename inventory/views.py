@@ -67,7 +67,7 @@ def profit_report(request):
 
     total = total_revenue - total_expenses
     total_profit = None
-    if total > 0:
+    if total >= 0:
         total_profit = total
     else:
         total_profit = total * -1

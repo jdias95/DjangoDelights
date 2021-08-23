@@ -4,12 +4,11 @@
 {% block header %}
 <div class="header">
     <a href="{% url 'home' %}" class="home">HOME</a>
-    <a href="{% url 'purchasecreate' %}" class="add-purchase">Add Purchase</a>
 </div>
 {% endblock %}
 
 {% block content %}
-<h2>Purchases</h2>
+<h2 class="page-title">Purchases</h2>
 
 <table class="purchases">
     <th>Menu Item</th>
@@ -24,5 +23,10 @@
         <td>{{ purchase.timestamp|date:"M d, Y h:i A"}}</td>
     </tr>
     {% endfor %}
+    <tr>
+        <td colspan=4 class="plus">
+            <a href="{% url 'purchasecreate' %}">&#xFF0B;</a>
+        </td>
+    </tr>
 </table>
 {% endblock %}

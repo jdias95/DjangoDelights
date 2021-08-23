@@ -1,0 +1,27 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+<h2>Register</h2>
+<form method="POST">
+    {% csrf_token %}
+    {% for field in registration_form %}
+        <p>
+            {{ field.label_tag|title }}
+            {{ field }}
+
+            {% if field.help_text %}
+            <br>
+            <small>{{ field.help_text }}</small>
+            {% endif %}
+
+            {% for error in field.errors %}
+            <p style="color: red;">{{ error }}</p>
+            {% endfor %}
+        </p>
+    {% endfor %}
+    <div class="button-container">
+        <input type="submit" value="Register" class="submit">
+        <a href="{% url 'home' %}" class="cancel">Cancel</a>
+    </div>
+</form>
+{% endblock %}

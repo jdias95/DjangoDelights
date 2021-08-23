@@ -7,6 +7,7 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = Account
         fields = {"first_name", "username", "password1", "password2"}
+    field_order = ["first_name", "username", "password1", "password2"]
         
 
 class AccountAuthenticationForm(forms.ModelForm):
@@ -15,6 +16,7 @@ class AccountAuthenticationForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = {"username", "password"}
+    field_order = ["username", "password"]
 
     def clean(self):
         username = self.cleaned_data["username"]

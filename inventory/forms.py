@@ -18,7 +18,6 @@ class MenuItemCreateForm(forms.ModelForm):
         model = MenuItem
         fields = {"title", "price"}
     field_order = ["title", "price"]
-    
 
 class RecipeRequirementCreateForm(forms.ModelForm):
     class Meta:

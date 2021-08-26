@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data" class="recipe-form">
     {% csrf_token %}
     {{ form.as_p }}
     <div class="button-container">

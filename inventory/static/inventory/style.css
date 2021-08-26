@@ -151,6 +151,10 @@ form .button-container {
     right: 2em;
 }
 
+.recipe-form ul {
+    display: none;
+}
+
 .plus {
     font-size: 36px;
 }

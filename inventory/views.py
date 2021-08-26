@@ -43,6 +43,17 @@ class RecipeRequirementCreate(CreateView):
     template_name = 'inventory/recipe_requirement_create_form.html'
     form_class = RecipeRequirementCreateForm
 
+def recipe_requirement_create(request, **kwargs):
+    context = {}
+    menu_item = MenuItem.objects.get(pk=kwargs['pk'])
+    recipe_requirements = RecipeRequirement.objects.all()
+    print(menu_item)
+    form = RecipeRequirementCreateForm(request.POST)
+    if form.is_valid():
+        form.save()
+    context['form'] = form
+    return render(request, "inventory/recipe_requirement_create_form.html", context)
+
 class PurchaseList(ListView):
     model = Purchase
     template_name = "inventory/purchases.html"

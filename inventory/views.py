@@ -1,6 +1,9 @@
+from typing import List
+
+from django.http.response import HttpResponseRedirect
 from inventory.forms import IngredientCreateForm, IngredientUpdateForm, MenuItemCreateForm, RecipeRequirementCreateForm, PurchaseCreateForm
 from inventory.models import Ingredient, MenuItem, Purchase, RecipeRequirement
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.urls import reverse_lazy
@@ -38,21 +41,37 @@ class MenuItemCreate(CreateView):
     template_name = 'inventory/menu_item_create_form.html'
     form_class = MenuItemCreateForm
 
-class RecipeRequirementCreate(CreateView):
-    model = RecipeRequirement
-    template_name = 'inventory/recipe_requirement_create_form.html'
-    form_class = RecipeRequirementCreateForm
-
-def recipe_requirement_create(request, **kwargs):
+def recipe_requirement_create(request, id):
     context = {}
-    menu_item = MenuItem.objects.get(pk=kwargs['pk'])
-    recipe_requirements = RecipeRequirement.objects.all()
-    print(menu_item)
+    menu_item = MenuItem.objects.get(id=id)
+    recipe_ingredients = RecipeRequirement.objects.filter(menu_item=menu_item)
+    print(id)
+    print(recipe_ingredients)
     form = RecipeRequirementCreateForm(request.POST)
     if form.is_valid():
-        form.save()
+        recipe = form.save(commit=False)
+        recipe.menu_item = menu_item
+        recipe.save()
     context['form'] = form
+    context['menu_item'] = menu_item
+    context['recipe_ingredients'] = recipe_ingredients
     return render(request, "inventory/recipe_requirement_create_form.html", context)
+
+def recipe_requirement_delete(request, id):
+    context = {}
+    obj = get_object_or_404(RecipeRequirement, id=id)
+    print(obj)
+    print(id)
+    if request.method == "POST":
+        obj.delete()
+        return HttpResponseRedirect("/")
+    context["ingredient"] = obj
+    return render(request, "inventory/recipe_requirement_delete_form.html", context)
+
+class RecipeRequirementDelete(DeleteView):
+    model = RecipeRequirement
+    template_name = "inventory/recipe_requirement_delete_form.html"
+    success_url = reverse_lazy("reciperequirementcreate", args=[id])
 
 class PurchaseList(ListView):
     model = Purchase

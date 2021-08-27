@@ -2,12 +2,35 @@
 {% load static %}
 
 {% block content %}
-<form action="" method="POST" enctype="multipart/form-data" class="recipe-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="button-container">
-        <input type="submit" value="Submit" class="submit">
-        <a href="{% url 'menuitemlist' %}" class="cancel">Cancel</a>
-    </div>
-</form>
+<h3>{{ menu_item.title|title }}</h3>
+<table class="recipe-form-requirement-table">
+    <tr>
+        <td>
+            <form action="" method="POST" enctype="multipart/form-data" class="recipe-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="button-container">
+                    <input type="submit" value="Submit" class="submit">
+                    <a href="{% url 'menuitemlist' %}" class="cancel">Cancel</a>
+                </div>
+            </form>
+        </td>
+        <td>
+            <table class="recipe-requirement-list">
+                <ul>
+                    {% for recipe_ingredient in recipe_ingredients %}
+                    <tr>
+                        <li>
+                            <td>{{ recipe_ingredient|title }}</td>
+                            <td>
+                                <a href="{% url 'reciperequirementdelete' recipe_ingredient.id %}" class="delete">Delete</a>
+                            </td>
+                        </li>
+                    </tr>
+                    {% endfor %}
+                </ul>
+            </table>
+        </td>
+    </tr>
+</table>
 {% endblock %}

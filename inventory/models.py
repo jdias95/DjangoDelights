@@ -46,7 +46,7 @@ class RecipeRequirement(models.Model):
     quantity = models.FloatField()
 
     def __str__(self):
-        return str(self.menu_item) + " and requires " + str(self.quantity) + " of its unit of " + str(self.ingredient)
+        return str(self.ingredient) + " | " + str(self.quantity)
 
     def get_absolute_url(self):
         return "/menuitem/list"

@@ -77,6 +77,13 @@ h2 {
     top: 0.33em;
 }
 
+h3 {
+    text-align: center;
+    position: relative;
+    top: 1em;
+    margin: 0;
+}
+
 .page-title {
     margin-top: 0;
 }
@@ -153,6 +160,40 @@ form .button-container {
 
 .recipe-form ul {
     display: none;
+}
+
+.recipe-form {
+    position: absolute;
+    top: 2em;
+    width: 100%;
+}
+
+.recipe-form .button-container {
+    position: absolute;
+    right: 2em;
+}
+
+.recipe-form-requirement-table {
+    padding-bottom: 5em;
+}
+
+.recipe-form-requirement-table td {
+    position: relative;
+    width: 50%;
+}
+
+.recipe-form-requirement-table ul {
+    position: relative;
+    left: 4em;
+    padding-top: 2em;
+}
+
+.recipe-form-requirement-table li {
+    display: none;
+}
+
+.recipe-requirement-list {
+    display: visible;
 }
 
 .plus {

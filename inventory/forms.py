@@ -22,8 +22,8 @@ class MenuItemCreateForm(forms.ModelForm):
 class RecipeRequirementCreateForm(forms.ModelForm):
     class Meta:
         model = RecipeRequirement
-        fields = {"menu_item", "ingredient", "quantity"}
-    field_order = ["menu_item", "ingredient", "quantity"]
+        fields = {"ingredient", "quantity"}
+    field_order = ["ingredient", "quantity"]
 
 class PurchaseCreateForm(forms.ModelForm):
     class Meta:

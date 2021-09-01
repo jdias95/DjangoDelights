@@ -11,9 +11,7 @@
     </p>
     {% endfor %}
     {% for error in field.errors %}
-        {% if error %}
-        <p style="color: red;">{{ error }}</p>
-        {% endif %}
+        <p style="color: red;">{{ error|escape }}</p>
     {% endfor %}
     <div class="button-container">
         <input type="submit" value="Submit" class="submit">

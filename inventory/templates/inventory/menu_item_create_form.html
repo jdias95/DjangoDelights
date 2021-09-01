@@ -4,7 +4,15 @@
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
-    {{ form.as_p|title }}
+    {% for field in form %}
+        <p>
+            {{ field.label_tag|title }}
+            {{ field }}
+        </p>
+    {% endfor %}
+    {% for error in field.errors %}
+        <p style="color: red;">{{ error|escape }}</p>
+    {% endfor %}
     <div class="button-container">
         <input type="submit" value="Submit" class="submit">
         <a href="{% url 'menuitemlist' %}" class="cancel">Cancel</a>

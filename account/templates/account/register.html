@@ -15,7 +15,7 @@
             {% endif %}
 
             {% for error in field.errors %}
-            <p style="color: red;">{{ error }}</p>
+            <p style="color: red;">{{ error|escape }}</p>
             {% endfor %}
         </p>
     {% endfor %}

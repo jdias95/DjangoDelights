@@ -75,16 +75,6 @@ def purchase_create(request):
     form = PurchaseCreateForm(request.POST)
 
     if form.is_valid():
-        menu_item = form.cleaned_data['menu_item']
-        recipe = RecipeRequirement.objects.filter(menu_item=menu_item)
-    #     for r in recipe:
-    #         inventory_stock = r.ingredient.quantity - r.quantity
-    #         if inventory_stock < 0:
-    #             print(inventory_stock)
-    #             raise forms.ValidationError("Not enough ingredients in stock.")
-        for r in recipe:
-            r.ingredient.quantity -= r.quantity
-            r.ingredient.save(update_fields=["quantity"])
         form.save()
         return HttpResponseRedirect("/purchase/list")
         

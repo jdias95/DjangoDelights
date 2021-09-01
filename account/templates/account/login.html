@@ -16,9 +16,9 @@
         </p>
     {% endfor %}
 
-    {% if login_form.errors %}
-        <p style="color: red;">Invalid username or password</p>
-    {% endif %}
+    {% for error in login_form.non_field_errors %}
+        <p style="color: red;">{{ error|escape }}</p>
+    {% endfor %}
     
     <div class="button-container">
         <input type="submit" value="Log In" class="submit">

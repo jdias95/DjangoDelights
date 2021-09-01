@@ -35,8 +35,7 @@ class PurchaseCreateForm(forms.ModelForm):
         for r in recipe:
             inventory_stock = r.ingredient.quantity - r.quantity
             if inventory_stock < 0:
-                print(inventory_stock)
                 raise forms.ValidationError("Not enough ingredients in stock.")
-        # for r in recipe:
-        #     r.ingredient.quantity -= r.quantity
-        #     r.ingredient.save(update_fields=["quantity"])
+        for r in recipe:
+            r.ingredient.quantity -= r.quantity
+            r.ingredient.save(update_fields=["quantity"])

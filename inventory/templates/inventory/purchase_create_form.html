@@ -4,7 +4,15 @@
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for field in form %}
+        <p>
+            {{ field.label_tag|title }}
+            {{ field }}
+        </p>
+    {% endfor %}
+    {% if form.errors %}
+        <p style="color: red;">Not enough ingredients in stock.</p>
+    {% endif %}
     <div class="button-container">
         <input type="submit" value="Submit" class="submit">
         <a href="{% url 'purchaselist' %}" class="cancel">Cancel</a>

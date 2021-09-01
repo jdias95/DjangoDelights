@@ -1,13 +1,10 @@
 from django.db import models
 from datetime import datetime
-
-# Create your models here.
-from django.db import models
 from django.db.models.deletion import CASCADE
 
 # Create your models here.
-class Ingredient(models.Model):
-    name = models.CharField(max_length=30)          # attributes listed incorrectly on form pages
+class Ingredient(models.Model):                         # want model data to be viewed relative to each account
+    name = models.CharField(max_length=30)
     quantity = models.IntegerField()
     MEASUREMENTS = [
         ('tsp', 'teaspoon'),
@@ -52,7 +49,7 @@ class RecipeRequirement(models.Model):
         return "/menuitem/list"
 
 class Purchase(models.Model):
-    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.SET_NULL, null=True)
     timestamp = models.DateTimeField(default=datetime.now())
 
     def __str__(self):

@@ -40,6 +40,7 @@ def login_view(request):
             if user:
                 login(request, user)
                 return redirect("home")
+
     else:
         form = AccountAuthenticationForm()
 

@@ -45,8 +45,6 @@ def recipe_requirement_create(request, id):
     context = {}
     menu_item = MenuItem.objects.get(id=id)
     recipe_ingredients = RecipeRequirement.objects.filter(menu_item=menu_item)
-    print(id)
-    print(recipe_ingredients)
     form = RecipeRequirementCreateForm(request.POST)
     if form.is_valid():
         recipe = form.save(commit=False)
@@ -60,36 +58,48 @@ def recipe_requirement_create(request, id):
 def recipe_requirement_delete(request, id):
     context = {}
     obj = get_object_or_404(RecipeRequirement, id=id)
-    print(obj)
-    print(id)
+    menu_item_id = obj.menu_item.id
     if request.method == "POST":
         obj.delete()
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect("/reciperequirement/create/{}".format(menu_item_id))
     context["ingredient"] = obj
+    context["menu_item_id"] = menu_item_id
     return render(request, "inventory/recipe_requirement_delete_form.html", context)
-
-class RecipeRequirementDelete(DeleteView):
-    model = RecipeRequirement
-    template_name = "inventory/recipe_requirement_delete_form.html"
-    success_url = reverse_lazy("reciperequirementcreate", args=[id])
 
 class PurchaseList(ListView):
     model = Purchase
     template_name = "inventory/purchases.html"
 
-class PurchaseCreate(CreateView):
-    model = Purchase
-    template_name = 'inventory/purchase_create_form.html'
-    form_class = PurchaseCreateForm
+def purchase_create(request):
+    context = {}
+    form = PurchaseCreateForm(request.POST)
 
-def profit_report(request):
+    if form.is_valid():
+        menu_item = form.cleaned_data['menu_item']
+        recipe = RecipeRequirement.objects.filter(menu_item=menu_item)
+    #     for r in recipe:
+    #         inventory_stock = r.ingredient.quantity - r.quantity
+    #         if inventory_stock < 0:
+    #             print(inventory_stock)
+    #             raise forms.ValidationError("Not enough ingredients in stock.")
+        for r in recipe:
+            r.ingredient.quantity -= r.quantity
+            r.ingredient.save(update_fields=["quantity"])
+        form.save()
+        return HttpResponseRedirect("/purchase/list")
+        
+    context['form'] = form
+    return render(request, "inventory/purchase_create_form.html", context)
+
+def profit_report(request):     # variables for revenue and expenses decrease with changes made to model data
     total_revenue = 0
     total_expenses = 0
     purchases = Purchase.objects.all()
     for item in purchases:
-        item_id = item.menu_item.id
-        menu = MenuItem.objects.get(pk=item_id)
-        total_revenue += menu.price
+        if item.menu_item != None:
+            item_id = item.menu_item.id
+            menu = MenuItem.objects.get(pk=item_id)
+            total_revenue += menu.price
 
     ingredients = Ingredient.objects.all()
     for item in ingredients:

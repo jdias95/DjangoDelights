@@ -23,7 +23,11 @@
         {% endif %}
         <td class="update shorter">
             <a href="{% url 'ingredientupdate' ingredient.id %}">Update</a>
+            {% if ingredient.unit != 'None' %}
+            <span>{{ ingredient.quantity }} {{ ingredient.unit }}</span>
+            {% elif ingredient.unit == 'None' %}
             <span>{{ ingredient.quantity }}</span>
+            {% endif %}
         </td>
         <td class="shorter">
             <a href="{% url 'ingredientdelete' ingredient.id %}" class="delete">Delete</a>

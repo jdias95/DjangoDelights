@@ -8,7 +8,17 @@
         <td>
             <form action="" method="POST" enctype="multipart/form-data" class="recipe-form">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% for field in form %}
+                <p>
+                    {{ field.label_tag|title }}
+                    {{ field }}
+                </p>
+                {% endfor %}
+                {% for error in field.errors %}
+                    {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                    {% endif %}
+                {% endfor %}
                 <div class="button-container">
                     <input type="submit" value="Submit" class="submit">
                     <a href="{% url 'menuitemlist' %}" class="cancel">Cancel</a>
@@ -21,8 +31,12 @@
                     {% for recipe_ingredient in recipe_ingredients %}
                     <tr>
                         <li>
+                            {% if recipe_ingredient.ingredient.unit != 'None' %}
+                            <td>{{ recipe_ingredient|title }} {{ recipe_ingredient.ingredient.unit }}</td>
+                            {% elif recipe_ingredient.ingredient.unit == 'None' %}
                             <td>{{ recipe_ingredient|title }}</td>
-                            <td>
+                            {% endif %}
+                            <td id="recipe-ingredient-delete">
                                 <a href="{% url 'reciperequirementdelete' recipe_ingredient.id %}" class="delete">Delete</a>
                             </td>
                         </li>

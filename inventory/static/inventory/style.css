@@ -15,12 +15,15 @@ body {
     top: 0;
     display: inline-flex;
     align-items: center;
+    z-index: 10;
+    background-color: #3a90b3;
 }
 
 .header-right {
     margin: 0;
     position: absolute;
     right: 4em;
+    z-index: 11;
 }
 
 .home {
@@ -174,7 +177,7 @@ form .button-container {
 }
 
 .recipe-form-requirement-table {
-    padding-bottom: 5em;
+    padding-bottom: 7em;
 }
 
 .recipe-form-requirement-table td {
@@ -194,6 +197,12 @@ form .button-container {
 
 .recipe-requirement-list {
     display: visible;
+    width: 60%;
+}
+
+#recipe-ingredient-delete {
+    width: 10%;
+    text-align: right;
 }
 
 .plus {

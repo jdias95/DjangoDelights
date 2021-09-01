@@ -4,7 +4,7 @@
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.as_p|title }}
     <div class="button-container">
         <input type="submit" value="Submit" class="submit">
         <a href="{% url 'menuitemlist' %}" class="cancel">Cancel</a>

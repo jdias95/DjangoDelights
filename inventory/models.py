@@ -6,6 +6,7 @@ from django.db.models.deletion import CASCADE
 class Ingredient(models.Model):                         # want model data to be viewed relative to each account
     name = models.CharField(max_length=30)
     quantity = models.IntegerField()
+    previous_quantity = models.IntegerField(default=0)
     MEASUREMENTS = [
         ('tsp', 'teaspoon'),
         ('tbsp', 'tablespoon'),
@@ -20,6 +21,7 @@ class Ingredient(models.Model):                         # want model data to be 
     ]
     unit = models.CharField(max_length=10, choices=MEASUREMENTS)
     unit_price = models.DecimalField(max_digits=30, decimal_places=2)
+    expense = models.DecimalField(max_digits=30, decimal_places=2, default=0)
 
     def __str__(self):
         return self.name

@@ -16,10 +16,10 @@
         <td>-</td>
         <td>${{ total_expenses }}</td>
         <td>=</td>
-        {% if total >= 0 %}
-        <td>${{ total_profit }}</td>
+        {% if total_profit >= 0 %}
+        <td>${{ total_positive }}</td>
         {% else %}
-        <td>-${{ total_profit }}</td>
+        <td>-${{ total_positive }}</td>
         {% endif %}
     </tr>
 </table>

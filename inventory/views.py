@@ -93,19 +93,23 @@ def profit_report(request):     # variables for revenue and expenses decrease wi
 
     ingredients = Ingredient.objects.all()
     for item in ingredients:
-        total_expenses += (item.unit_price * item.quantity)
+        if item.quantity > item.previous_quantity:
+            quantity_difference = item.quantity - item.previous_quantity
+            item.expense += quantity_difference * item.unit_price
+            item.previous_quantity = item.quantity
+            item.save(update_fields=["expense", "previous_quantity"])
 
-    total = total_revenue - total_expenses
-    total_profit = None
-    if total >= 0:
-        total_profit = total
-    else:
-        total_profit = total * -1
+        total_expenses += item.expense
+
+    total_profit = total_revenue - total_expenses
+    total_positive = total_revenue - total_expenses
+    if total_positive < 0:
+        total_positive *= -1
 
     context = {
         "total_revenue": total_revenue,
         "total_expenses": total_expenses,
-        "total": total,
+        "total_positive": total_positive,
         "total_profit": total_profit
     }
     return render(request, "inventory/report.html", context)

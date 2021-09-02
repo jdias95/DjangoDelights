@@ -96,8 +96,9 @@ def profit_report(request):     # variables for revenue and expenses decrease wi
         if item.quantity > item.previous_quantity:
             quantity_difference = item.quantity - item.previous_quantity
             item.expense += quantity_difference * item.unit_price
-            item.previous_quantity = item.quantity
-            item.save(update_fields=["expense", "previous_quantity"])
+            item.save(update_fields=["expense"])
+        item.previous_quantity = item.quantity
+        item.save(update_fields=["previous_quantity"])
 
         total_expenses += item.expense
 

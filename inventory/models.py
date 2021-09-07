@@ -1,9 +1,13 @@
 from django.db import models
 from datetime import datetime
 from django.db.models.deletion import CASCADE
+from django.db.models.fields.related import ForeignKey
+from account.models import Account
+from django.conf import settings
 
 # Create your models here.
-class Ingredient(models.Model):                         # want model data to be viewed relative to each account
+class Ingredient(models.Model):
+    user = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     name = models.CharField(max_length=30)
     quantity = models.IntegerField()
     previous_quantity = models.IntegerField(default=0)
@@ -30,6 +34,7 @@ class Ingredient(models.Model):                         # want model data to be 
         return "/ingredient/list"
 
 class MenuItem(models.Model):
+    user = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     title = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=30, decimal_places=2)
 
@@ -51,6 +56,7 @@ class RecipeRequirement(models.Model):
         return "/menuitem/list"
 
 class Purchase(models.Model):
+    user = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     menu_item = models.ForeignKey(MenuItem, on_delete=models.SET_NULL, null=True)
     timestamp = models.DateTimeField(default=datetime.now())
 

@@ -1,46 +1,74 @@
 from typing import List
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponseRedirect
 from inventory.forms import IngredientCreateForm, IngredientUpdateForm, MenuItemCreateForm, RecipeRequirementCreateForm, PurchaseCreateForm
 from inventory.models import Ingredient, MenuItem, Purchase, RecipeRequirement
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import DeleteView, UpdateView
 from django.urls import reverse_lazy
 
 # Create your views here.
 def home(request):
     return render(request, "inventory/home.html")
 
-class IngredientList(ListView):
-    model = Ingredient
-    template_name = "inventory/inventory.html"
+@login_required(login_url='/login/')
+def ingredient_list(request):
+    context = {}
+    user_ingredient_list = Ingredient.objects.filter(user=request.user)
+    context['user_ingredient_list'] = user_ingredient_list
+    return render(request, 'inventory/inventory.html', context)
 
-class IngredientCreate(CreateView):
-    model = Ingredient
-    template_name = 'inventory/ingredient_create_form.html'
-    form_class = IngredientCreateForm
+@login_required(login_url='/login/')
+def ingredient_create(request):
+    context = {}
+    form = IngredientCreateForm(request.POST)
 
-class IngredientUpdate(UpdateView):
+    if form.is_valid():
+        ingredient = form.save(commit=False)
+        ingredient.user = request.user
+        ingredient.save()
+        return HttpResponseRedirect('/ingredient/list')
+
+    context['form'] = form
+    return render(request, 'inventory/ingredient_create_form.html', context)
+
+class IngredientUpdate(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
     model = Ingredient
     template_name = 'inventory/ingredient_update_form.html'
     form_class = IngredientUpdateForm
     success_url = reverse_lazy("ingredientlist")
 
-class IngredientDelete(DeleteView):
+class IngredientDelete(LoginRequiredMixin, DeleteView):
+    login_url = '/login/'
     model = Ingredient
     template_name = "inventory/ingredient_delete_form.html"
     success_url = reverse_lazy("ingredientlist")
 
-class MenuItemList(ListView):
-    model = MenuItem
-    template_name = "inventory/menu.html"
+@login_required(login_url='/login/')
+def menu_item_list(request):
+    context = {}
+    user_menu_item_list = MenuItem.objects.filter(user=request.user)
+    context['user_menu_item_list'] = user_menu_item_list
+    return render(request, 'inventory/menu.html', context)
 
-class MenuItemCreate(CreateView):
-    model = MenuItem
-    template_name = 'inventory/menu_item_create_form.html'
-    form_class = MenuItemCreateForm
+@login_required(login_url='/login/')
+def menu_item_create(request):
+    context = {}
+    form = MenuItemCreateForm(request.POST)
 
+    if form.is_valid():
+        menu_item = form.save(commit=False)
+        menu_item.user = request.user
+        menu_item.save()
+        return HttpResponseRedirect('/menuitem/list')
+
+    context['form'] = form
+    return render(request, 'inventory/menu_item_create_form.html', context)
+
+@login_required(login_url='/login/')
 def recipe_requirement_create(request, id):
     context = {}
     menu_item = MenuItem.objects.get(id=id)
@@ -55,6 +83,7 @@ def recipe_requirement_create(request, id):
     context['recipe_ingredients'] = recipe_ingredients
     return render(request, "inventory/recipe_requirement_create_form.html", context)
 
+@login_required(login_url='/login/')
 def recipe_requirement_delete(request, id):
     context = {}
     obj = get_object_or_404(RecipeRequirement, id=id)
@@ -66,22 +95,30 @@ def recipe_requirement_delete(request, id):
     context["menu_item_id"] = menu_item_id
     return render(request, "inventory/recipe_requirement_delete_form.html", context)
 
-class PurchaseList(ListView):
-    model = Purchase
-    template_name = "inventory/purchases.html"
+@login_required(login_url='/login/')
+def purchase_list(request):
+    context = {}
+    user_purchase_list = Purchase.objects.filter(user=request.user)
+    context['user_purchase_list'] = user_purchase_list
+    return render(request, 'inventory/purchases.html', context)
 
+@login_required(login_url='/login/')
 def purchase_create(request):
     context = {}
     form = PurchaseCreateForm(request.POST)
+    form.fields['menu_item'].queryset = MenuItem.objects.filter(user=request.user)
 
     if form.is_valid():
-        form.save()
+        purchase = form.save(commit=False)
+        purchase.user = request.user
+        purchase.save()
         return HttpResponseRedirect("/purchase/list")
         
     context['form'] = form
     return render(request, "inventory/purchase_create_form.html", context)
 
-def profit_report(request):     # variables for revenue and expenses decrease with changes made to model data
+@login_required(login_url='/login/')
+def profit_report(request):
     total_revenue = 0
     total_expenses = 0
     purchases = Purchase.objects.all()

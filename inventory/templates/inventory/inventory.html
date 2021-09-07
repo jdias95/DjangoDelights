@@ -13,7 +13,7 @@
     <th class="shorter">Price Per Unit</th>
     <th class="shorter">Stock</th>
     <th class="shorter"></th>
-    {% for ingredient in ingredient_list %}
+    {% for ingredient in user_ingredient_list %}
     <tr>
         <td class="longer">{{ ingredient.name|title }}</td>
         {% if ingredient.unit != 'None' %}

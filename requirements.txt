@@ -28,7 +28,7 @@ pygeoip==0.3.2
 python-decouple==3.4
 python-dotenv==0.19.0
 pytz==2016.6
-pywin32==301
+# pywin32==301
 pyzt==1.0.1
 six==1.16.0
 sqlparse==0.4.1

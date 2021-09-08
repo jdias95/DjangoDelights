@@ -1,0 +1,303 @@
+html {
+    padding-top: 1.5em;
+}
+
+body {
+    background-color: #3a90b3;
+    color: white;
+    font-family: 'Lora', serif;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 4.5em;
+    top: 0;
+    display: inline-flex;
+    align-items: center;
+    z-index: 10;
+    background-color: #3a90b3;
+}
+
+.header-right {
+    margin: 0;
+    position: absolute;
+    right: 4em;
+    z-index: 11;
+}
+
+.home {
+    display: inline-block;
+    position: absolute;
+    left: 2em;
+}
+
+.header a:hover {
+    color: #93b0f0;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 64px;
+    text-align: center;
+    color: black;
+    margin-bottom: 0;
+}
+
+.container {
+    position: relative;
+    top: 3em;
+    background-color: #0C4866;
+    padding-bottom: 2em;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    font-family: 'Lobster', cursive;
+    font-size: 36px;
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+a:hover {
+    color: #5b89ec;
+}
+
+h2 {
+    position: relative;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    font-size: 36px;
+    top: 0.33em;
+}
+
+h3 {
+    text-align: center;
+    position: relative;
+    top: 1em;
+    margin: 0;
+}
+
+.page-title {
+    margin-top: 0;
+}
+
+table {
+    font-family: 'Lora', serif;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.inventory, .menu {
+    border-collapse: collapse;
+    border: 1px solid rgb(173, 173, 173);
+}
+
+.inventory {
+    position: relative;
+    max-width: 50%;
+    left: 2.83em;
+}
+
+.inventory .shorter {
+    width: 20%;
+}
+
+.inventory th, .inventory td {
+    border: 1px solid rgb(173, 173, 173);
+}
+
+.inventory td {
+    padding: 0.15em 0.5em;
+}
+
+.inventory td:nth-child(4), .inventory th:nth-child(4), .inventory {
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+.inventory td:nth-child(2), .inventory td:nth-child(3) {
+    width: 20%;
+}
+
+.ingredient-delete {
+    padding-bottom: 0;
+    padding-left: 2em;
+}
+
+.ingredient-delete .delete-button-container {
+    padding-left: 2em;
+}
+
+.delete-p {
+    display: inline-block;
+}
+
+form {
+    position: relative;
+    padding: 2em 0;
+}
+
+form p {
+    width: auto;
+    text-align: left;
+    position: relative;
+    left: 2em;
+}
+
+form .button-container {
+    position: absolute;
+    right: 2em;
+}
+
+.recipe-form ul {
+    display: none;
+}
+
+.recipe-form {
+    position: absolute;
+    top: 2em;
+    width: 100%;
+}
+
+.recipe-form .button-container {
+    position: absolute;
+    right: 2em;
+}
+
+.recipe-form-requirement-table {
+    padding-bottom: 7em;
+}
+
+.recipe-form-requirement-table td {
+    position: relative;
+    width: 50%;
+}
+
+.recipe-form-requirement-table ul {
+    position: relative;
+    left: 4em;
+    padding-top: 2em;
+}
+
+.recipe-form-requirement-table li {
+    display: none;
+}
+
+.recipe-requirement-list {
+    display: visible;
+    width: 60%;
+}
+
+#recipe-ingredient-delete {
+    width: 10%;
+    text-align: right;
+}
+
+.plus {
+    font-size: 36px;
+}
+
+.submit, .cancel {
+    display: inline-block;
+    border: none;
+    margin: 0.25em 0.175em;
+    padding: 0.2em 0.5em;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    background-color: #e6e7e7;
+    font-size: 1em;
+    font-family: 'Lora', serif;
+    text-align: center;
+    width: 4.84em;
+}
+
+.submit:hover, .cancel:hover {
+    background-color: #585a5a;
+    color: white;
+}
+
+.cancel {
+    width: 3.842em;
+}
+
+.ingredientdelete {
+    padding-left: 5em;
+}
+
+.delete {
+    color: rgb(206, 62, 62);
+}
+
+.delete:hover {
+    color: rgb(245, 131, 131);
+}
+
+.add {
+    text-align: center;
+    font-size: 20px;
+    position: relative;
+}
+
+.add a {
+    color: rgb(123, 189, 123);
+}
+
+.add a::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.add a:hover {
+    color: rgb(156, 240, 156);
+}
+
+.update {
+    white-space: nowrap;
+}
+
+.update span {
+    float: right;
+}
+
+.update a {
+    text-align: right;
+    float: left;
+    color: rgb(0, 217, 255);
+}
+
+.update a:hover {
+    color: rgb(122, 235, 255);
+}
+
+.menu td, .purchases td, .purchases th {
+    width: 25%;
+    text-align: center;
+    padding: 0.5em;
+}
+
+.menu .add {
+    border: 1px solid rgb(173, 173, 173);
+}
+
+.report td {
+    width: 20%;
+    text-align: center;
+}
+

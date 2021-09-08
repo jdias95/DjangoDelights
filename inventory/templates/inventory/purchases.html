@@ -16,12 +16,12 @@
     <th></th>
     <th>Time of Purchase</th>
     {% for purchase in user_purchase_list %}
-    <tr>
-        <td>{{ purchase.menu_item|title }}</td>
-        <td></td>
-        <td></td>
-        <td>{{ purchase.timestamp|date:"M d, Y h:i A"}}</td>
-    </tr>
+        <tr>
+            <td>{{ purchase.menu_item|title }}</td>
+            <td></td>
+            <td></td>
+            <td>{{ purchase.timestamp|date:"M d, Y h:i A" }}</td>
+        </tr>
     {% endfor %}
     <tr>
         <td colspan=4 class="plus">

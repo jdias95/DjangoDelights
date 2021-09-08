@@ -4,6 +4,7 @@ from django.db.models.deletion import CASCADE
 from django.db.models.fields.related import ForeignKey
 from account.models import Account
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 class Ingredient(models.Model):
@@ -58,7 +59,7 @@ class RecipeRequirement(models.Model):
 class Purchase(models.Model):
     user = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     menu_item = models.ForeignKey(MenuItem, on_delete=models.SET_NULL, null=True)
-    timestamp = models.DateTimeField(default=datetime.now())
+    timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.menu_item) + " purchased at " + str(self.timestamp)

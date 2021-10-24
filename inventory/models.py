@@ -15,7 +15,7 @@ class Ingredient(models.Model):
     MEASUREMENTS = [
         ('tsp', 'teaspoon'),
         ('tbsp', 'tablespoon'),
-        ('g', 'grams'),
+        ('g', 'gram'),
         ('oz', 'ounce'),
         ('c', 'cup'),
         ('pt', 'pint'),

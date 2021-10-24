@@ -1,6 +1,10 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<a href="{% url 'home' %}" class="home">HOME</a>
+{% endblock %}
+
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}

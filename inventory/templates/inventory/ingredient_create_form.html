@@ -1,14 +1,25 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<a href="{% url 'home' %}" class="home">HOME</a>
+{% endblock %}
+
 {% block content %}
 <form action="" method="POST">
     {% csrf_token %}
     {% for field in form %}
+    {% if field.name == 'unit_price' %}
+    <p>
+        {{ field.label_tag|title }}
+        ${{ field }}
+    </p>
+    {% else %}
     <p>
         {{ field.label_tag|title }}
         {{ field }}
     </p>
+    {% endif %}
     {% endfor %}
     {% for error in field.errors %}
         <p style="color: red;">{{ error|escape }}</p>

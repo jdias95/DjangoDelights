@@ -1,6 +1,10 @@
 {% extends './base.html' %}
 {% load static %}
 
+{% block header %}
+<a href="{% url 'home' %}" class="home">HOME</a>
+{% endblock %}
+
 {% block content %}
 <h3>{{ menu_item.title|title }}</h3>
 <table class="recipe-form-requirement-table">
@@ -9,10 +13,17 @@
             <form action="" method="POST" enctype="multipart/form-data" class="recipe-form">
                 {% csrf_token %}
                 {% for field in form %}
+                {% if field.name == 'quantity' %}
+                <p>
+                    Unit {{ field.label_tag|title }}
+                    {{ field }}
+                </p>
+                {% else %}
                 <p>
                     {{ field.label_tag|title }}
                     {{ field }}
                 </p>
+                {% endif %}
                 {% endfor %}
                 {% for error in field.errors %}
                     <p style="color: red;">{{ error|escape }}</p>

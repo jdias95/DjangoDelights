@@ -4,8 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http.response import HttpResponseRedirect
 from inventory.forms import IngredientCreateForm, IngredientUpdateForm, MenuItemCreateForm, RecipeRequirementCreateForm, PurchaseCreateForm
 from inventory.models import Ingredient, MenuItem, Purchase, RecipeRequirement
+from account.models import Account
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import ListView
 from django.views.generic.edit import DeleteView, UpdateView
 from django.urls import reverse_lazy
 
@@ -28,18 +28,40 @@ def ingredient_create(request):
     if form.is_valid():
         ingredient = form.save(commit=False)
         ingredient.user = request.user
+        ingredient.expense = ingredient.quantity * ingredient.unit_price
         ingredient.save()
+        account = Account.objects.get(username=request.user)
+        account.total_expenses += ingredient.expense
+        account.save()
         return HttpResponseRedirect('/ingredient/list')
 
     context['form'] = form
     return render(request, 'inventory/ingredient_create_form.html', context)
 
-class IngredientUpdate(LoginRequiredMixin, UpdateView):
-    login_url = '/login/'
-    model = Ingredient
-    template_name = 'inventory/ingredient_update_form.html'
-    form_class = IngredientUpdateForm
-    success_url = reverse_lazy("ingredientlist")
+@login_required(login_url='/login/')
+def ingredient_update(request, id):
+    context = {}
+    obj = get_object_or_404(Ingredient, id=id)
+    form = IngredientUpdateForm(request.POST, instance=obj)
+
+    if form.is_valid():
+        form.save()
+        item = Ingredient.objects.get(id=id)
+        if item.quantity > item.previous_quantity:
+            quantity_difference = item.quantity - item.previous_quantity
+            new_expense = quantity_difference * item.unit_price
+            item.expense += new_expense
+            item.save()
+            account = Account.objects.get(username=request.user)
+            account.total_expenses += new_expense
+            account.save()
+        item.previous_quantity = item.quantity
+        item.save()
+        return HttpResponseRedirect('/ingredient/list')
+
+    context['form'] = form
+
+    return render(request, 'inventory/ingredient_update_form.html', context)
 
 class IngredientDelete(LoginRequiredMixin, DeleteView):
     login_url = '/login/'
@@ -74,6 +96,8 @@ def recipe_requirement_create(request, id):
     menu_item = MenuItem.objects.get(id=id)
     recipe_ingredients = RecipeRequirement.objects.filter(menu_item=menu_item)
     form = RecipeRequirementCreateForm(request.POST)
+    form.fields['ingredient'].queryset = Ingredient.objects.filter(user=request.user)
+
     if form.is_valid():
         recipe = form.save(commit=False)
         recipe.menu_item = menu_item
@@ -111,6 +135,10 @@ def purchase_create(request):
     if form.is_valid():
         purchase = form.save(commit=False)
         purchase.user = request.user
+        account = Account.objects.get(username=purchase.user)
+        item = MenuItem.objects.get(pk=purchase.menu_item.id)
+        account.total_revenue += item.price
+        account.save()
         purchase.save()
         return HttpResponseRedirect("/purchase/list")
         
@@ -119,25 +147,10 @@ def purchase_create(request):
 
 @login_required(login_url='/login/')
 def profit_report(request):
-    total_revenue = 0
-    total_expenses = 0
-    purchases = Purchase.objects.all()
-    for item in purchases:
-        if item.menu_item != None:
-            item_id = item.menu_item.id
-            menu = MenuItem.objects.get(pk=item_id)
-            total_revenue += menu.price
+    account = Account.objects.get(username=request.user)
 
-    ingredients = Ingredient.objects.all()
-    for item in ingredients:
-        if item.quantity > item.previous_quantity:
-            quantity_difference = item.quantity - item.previous_quantity
-            item.expense += quantity_difference * item.unit_price
-            item.save(update_fields=["expense"])
-        item.previous_quantity = item.quantity
-        item.save(update_fields=["previous_quantity"])
-
-        total_expenses += item.expense
+    total_revenue = account.total_revenue
+    total_expenses = account.total_expenses
 
     total_profit = total_revenue - total_expenses
     total_positive = total_revenue - total_expenses

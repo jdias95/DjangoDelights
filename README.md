@@ -1,5 +1,5 @@
 # Django Delights
-Deployed at: https://django-delights.herokuapp.com/
+Deployed at: https://django-delights.herokuapp.com/  
 This project is a simple website built using the Django framework in Python. Its main purpose is to simulate restaurant management. Here is a summary of the project's features and components:
 
 ## User Registration and Login

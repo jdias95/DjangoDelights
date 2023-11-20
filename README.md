@@ -1,21 +1,18 @@
 # Django Delights
 Deployed at: https://django-delights.herokuapp.com/  
-This project is a simple website built using the Django framework in Python. Its purpose is to simulate restaurant management. Here is a summary of the project's features and components:
-
-## User Registration and Login
-Users can register an account and log in to the website.
+This project is a simple website built using the Django framework in Python. Its purpose is to simulate restaurant management. Once registering and logging in, users can explore the features of the app, which include:
 
 ## Inventory Management
-Users can add items to the inventory by specifying the item's name, quantity, unit, and unit price. The inventory items are associated with the user who added them. The inventory dynamically tracks the available quantity of each item.
+Adding inventory items by specifying the item's name, quantity, unit, and unit price.
 
 ## Menu Creation
-Users can add items to the menu by providing a title and price for each menu item. The menu items are also associated with the user who added them.
+Adding items to the menu by providing a title and price for each menu item.
 
 ## Recipe Management
-Users can specify the recipe requirements for each menu item. The recipe requirements include the ingredients and their quantities needed to prepare a menu item.
+Specifying the recipe requirements for each menu item. The recipe requirements include the ingredients and their quantity.
 
 ## Purchase Tracking
-Users can track purchases made for menu items. When a purchase is made, the system checks if there are sufficient ingredients in stock based on the recipe requirements. If there are not enough ingredients, an error is displayed. If the purchase is successful, the inventory stock is updated accordingly.
+Tracking purchases made for menu items. If there are sufficient ingredients, the inventory is updated accordingly.
 
 ## Profit Tracking
-The system calculates profit by subtracting total expenses from total revenue. The total revenue is calculated based on the prices of the purchased menu items, and the total expenses are calculated based on the quantity and unit price of the ingredients used.
+Expenses and revenue are also tracked to inform the user of the profit generated.

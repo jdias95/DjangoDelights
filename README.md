@@ -6,7 +6,7 @@ This project is a simple website built using the Django framework in Python. Its
 Adding inventory items by specifying the item's name, quantity, unit, and unit price.
 
 ## Menu Creation
-Adding items to the menu by providing a title and price for each menu item.
+Adding items to the menu by providing a name and price for each menu item.
 
 ## Recipe Management
 Specifying the recipe requirements for each menu item. The recipe requirements include the ingredients and their quantity.
